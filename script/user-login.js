@@ -136,7 +136,7 @@ async function handleAccountLogin() {
         setCookie("apiKey", decryptedApiKey, 7); 
         setCookie('isAnonymous', 'false'); // 新增：标记为非匿名登录
 
-        window.location.href = "/";
+        window.location.href = "../../";
 
     } catch (err) {
         // 精准错误提示
@@ -202,7 +202,7 @@ async function checkLoginState() {
         if (!decryptedApiKey) return; // 未解密完成则不检查
         const Supabase = await initSupabase();
         const { data: { user } } = await Supabase.auth.getUser();
-        if (user) window.location.href = "/";
+        if (user) window.location.href = "../../";
     } catch (err) {
         console.error("检查登录状态错误：", err);
     }

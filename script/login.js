@@ -31,7 +31,7 @@ document.getElementById('loginBtn').addEventListener('click', async function () 
         errorMessage.style.display = 'block';
 
         setTimeout(() => {
-            window.location.href = '/';
+            window.location.href = '../';
         }, 1000);
 
     } catch (error) {
