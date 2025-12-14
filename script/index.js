@@ -265,7 +265,7 @@ async function fetchWikiDocuments(Supabase) {
                     <tr onclick="window.location.href='wiki/?id=${item.id}'">
                         <td>${item.id}</td>
                         <td>${item.title || '无标题'}</td>
-                        <td>${creatorName}</td>
+                        <td style="cursor: pointer; color: #1890ff;" onclick="event.stopPropagation(); goToUserPage('${item.created_by_uuid}')">${creatorName}</td>
                         <td>${columnName}</td>
                         <td>${formattedTime}</td>
                         <td>${typeTag}</td>
@@ -359,7 +359,7 @@ async function fetchWikiDocuments(Supabase) {
                 <tr onclick="window.location.href='wiki/?id=${item.id}'">
                     <td>${item.id}</td>
                     <td>${item.title || '无标题'}</td>
-                    <td>${creatorName}</td>
+                    <td style="cursor: pointer; color: #1890ff;" onclick="event.stopPropagation(); goToUserPage('${item.created_by_uuid}')">${creatorName}</td>
                     <td>${columnName}</td>
                     <td>${formattedTime}</td>
                     <td>${typeTag}</td>
@@ -529,3 +529,17 @@ document.addEventListener('DOMContentLoaded', async function() {
     initCreateWiki(Supabase);
     initLogout(Supabase);
 });
+
+// 新增：跳转个人主页函数
+function goToUserPage(uuid = '') {
+    // 优先使用传入的uuid，否则用当前用户uuid
+    const targetUuid = uuid || currentUser.uuid;
+    
+    // 匿名用户无uuid，提示
+    if (!targetUuid) {
+        customAlert('匿名用户无个人主页', '提示');
+        return;
+    }
+    
+    window.location.href = `user?id=${targetUuid}`;
+}

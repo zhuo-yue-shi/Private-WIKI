@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人主页 - WIKI系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 24px;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1890ff;
+        }
+        .back-btn {
+            padding: 8px 16px;
+            background-color: #1890ff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .back-btn:hover {
+            background-color: #096dd9;
+        }
+        .user-card {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 24px;
+        }
+        .loading-state, .error-state {
+            text-align: center;
+            padding: 60px 0;
+            color: #666;
+        }
+        .error-state {
+            color: #f5222d;
+        }
+        .user-info-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .user-info-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .info-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        .info-value {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .tag {
+            padding: 4px 12px;
+            background-color: #f0f8ff;
+            color: #1890ff;
+            border-radius: 16px;
+            font-size: 14px;
+        }
+        .gender-tag {
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 14px;
+        }
+        .gender-male {
+            background-color: #e6f7ff;
+            color: #1890ff;
+        }
+        .gender-female {
+            background-color: #fff1f0;
+            color: #f5222d;
+        }
+        .gender-unknown {
+            background-color: #f5f5f5;
+            color: #666;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部 -->
+    <div class="header">
+        <div class="logo">WIKI系统 - 个人主页</div>
+        <button class="back-btn" onclick="window.history.back()">返回上一页</button>
+    </div>
+
+    <!-- 加载状态 -->
+    <div id="loadingState" class="loading-state">
+        <h3>加载中...</h3>
+    </div>
+
+    <!-- 错误状态 -->
+    <div id="errorState" class="error-state hidden">
+        <h3>加载失败</h3>
+        <p id="errorMsg">未知错误</p>
+    </div>
+
+    <!-- 用户信息卡片 -->
+    <div id="userCard" class="user-card hidden">
+        <div class="user-info-item">
+            <div class="info-label">用户名</div>
+            <div class="info-value" id="userName"></div>
+        </div>
+        <div class="user-info-item">
+            <div class="info-label">用户ID</div>
+            <div class="info-value" id="userId"></div>
+        </div>
+        <div class="user-info-item">
+            <div class="info-label">性别</div>
+            <div class="info-value">
+                <span id="userGender" class="gender-tag"></span>
+            </div>
+        </div>
+        <div class="user-info-item">
+            <div class="info-label">我与Ta都可访问板块</div>
+            <div class="info-value">
+                <div id="userVisit" class="tag-list"></div>
+            </div>
+        </div>
+        <div class="user-info-item">
+            <div class="info-label">Ta管理我的板块</div>
+            <div class="info-value">
+                <div id="userAdmin" class="tag-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入Supabase和工具脚本 -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../script/modal-utils.js"></script>
+    <script src="../script/user.js"></script>
+</body>
+</html>

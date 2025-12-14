@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,36 +9,249 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="../css/style.css">
     <script src="../script/modal-utils.js"></script>
+    <style>
+        /* 新增评论功能样式 */
+        .wiki-detail-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .detail-wrapper {
+            display: flex;
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .doc-main-area {
+            flex: 7;
+            background: #fff;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .comment-area {
+            flex: 3;
+            background: #fff;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .comment-header {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .anonymous-tip {
+            padding: 12px;
+            background-color: #fff7e6;
+            color: #fa8c16;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .comment-form {
+            margin-bottom: 24px;
+        }
+
+        .comment-textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 12px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            resize: vertical;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .comment-submit-btn {
+            padding: 8px 16px;
+            background-color: #1890ff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .comment-submit-btn:hover {
+            background-color: #096dd9;
+        }
+
+        .comment-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .comment-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .comment-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .comment-author {
+            color: #1890ff;
+            cursor: pointer;
+        }
+
+        .comment-time {
+            color: #999;
+        }
+
+        .comment-content {
+            line-height: 1.6;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .comment-actions {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+        }
+
+        .comment-reply-btn {
+            color: #1890ff;
+            cursor: pointer;
+        }
+
+        .comment-reply-form {
+            margin-top: 12px;
+            padding-left: 20px;
+            display: none;
+        }
+
+        .comment-reply-textarea {
+            width: 100%;
+            min-height: 60px;
+            padding: 8px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            resize: vertical;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .comment-reply-submit {
+            padding: 4px 12px;
+            background-color: #1890ff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .comment-reply-cancel {
+            padding: 4px 12px;
+            background-color: #f5f5f5;
+            color: #666;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+
+        .comment-children {
+            list-style: none;
+            padding-left: 20px;
+            margin-top: 12px;
+        }
+
+        .no-comment {
+            text-align: center;
+            padding: 20px 0;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .detail-wrapper {
+                flex-direction: column;
+            }
+
+            .comment-area {
+                max-height: unset;
+            }
+        }
+    </style>
 </head>
+
 <body>
     <div class="wiki-detail-container">
         <a href="../" class="back-btn">← 返回文档列表</a>
-        
+
         <!-- 文档操作按钮（仅创建者/管理员可见） -->
         <div class="doc-actions" id="docActions" style="display: none;">
             <button class="edit-btn" id="editBtn">编辑文档</button>
             <button class="delete-btn" id="deleteBtn">删除文档</button>
         </div>
-        
+
         <!-- 加载状态 -->
         <div id="loadingState" class="loading-state">
             <h3>加载文档中...</h3>
         </div>
-        
+
         <!-- 错误状态 -->
         <div id="errorState" class="error-state" style="display: none;"></div>
-        
-        <!-- 文档详情 -->
-        <div id="detailContainer" style="display: none;">
-            <div class="detail-header">
-                <h1 class="detail-title" id="docTitle"></h1>
-                <div class="detail-meta">
-                    <span>创建人：<span id="docCreator"></span></span>
-                    <span>创建时间：<span id="docTime"></span></span>
-                    <span id="docType"></span>
+
+        <!-- 文档+评论主体布局 -->
+        <div class="detail-wrapper" id="detailContainer" style="display: none;">
+            <!-- 左侧文档详情 -->
+            <div class="doc-main-area">
+                <div class="detail-header">
+                    <h1 class="detail-title" id="docTitle"></h1>
+                    <div class="detail-meta">
+                        <span>创建人：<span id="docCreator" class="meta-value"
+                                style="cursor: pointer; color: #1890ff;"></span></span>
+                        <span>创建时间：<span id="docTime"></span></span>
+                        <span id="docType"></span>
+                    </div>
                 </div>
+                <div class="detail-content" id="docContent"></div>
             </div>
-            <div class="detail-content" id="docContent"></div>
+
+            <!-- 右侧评论区 -->
+            <div class="comment-area">
+                <div class="comment-header">评论区</div>
+
+                <!-- 匿名用户提示 -->
+                <div id="anonymousTip" class="anonymous-tip hidden">
+                    匿名用户仅可查看评论，登录后可发布/回复评论
+                </div>
+
+                <!-- 评论发布框（仅登录用户可见） -->
+                <div id="commentForm" class="comment-form hidden">
+                    <textarea id="newCommentContent" class="comment-textarea" placeholder="请输入评论内容..."></textarea>
+                    <button id="submitCommentBtn" class="comment-submit-btn">发布评论</button>
+                </div>
+
+                <!-- 评论列表 -->
+                <ul id="commentList" class="comment-list"></ul>
+            </div>
         </div>
     </div>
 
@@ -74,6 +288,29 @@
         </div>
     </div>
 
+    <!-- 编辑评论模态框 -->
+    <div class="modal-mask" id="editCommentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">编辑评论</h3>
+                <button class="close-btn" id="closeEditCommentBtn">×</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editCommentId">
+                <div class="form-row">
+                    <label class="form-label">评论内容 *</label>
+                    <textarea class="content-editor" id="editCommentContent" placeholder="请输入评论内容..."></textarea>
+                </div>
+                <span class="error-message" id="editCommentError" style="display: none;"></span>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn" id="cancelEditCommentBtn">取消</button>
+                <button class="save-btn" id="saveEditCommentBtn">保存修改</button>
+            </div>
+        </div>
+    </div>
+
     <script src="../script/page.js"></script>
 </body>
+
 </html>
