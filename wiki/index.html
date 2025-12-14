@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WIKI 文档详情</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../script/modal-utils.js"></script> <!-- 新增：引入自定义弹窗工具 -->
+</head>
+<body>
+    <div class="wiki-detail-container">
+        <a href="../" class="back-btn">← 返回文档列表</a>
+        
+        <!-- 文档操作按钮（仅创建者可见） -->
+        <div class="doc-actions" id="docActions" style="display: none;">
+            <button class="edit-btn" id="editBtn">编辑文档</button>
+            <button class="delete-btn" id="deleteBtn">删除文档</button>
+        </div>
+        
+        <!-- 加载状态 -->
+        <div id="loadingState" class="loading-state">
+            <h3>加载文档中...</h3>
+        </div>
+        
+        <!-- 错误状态 -->
+        <div id="errorState" class="error-state" style="display: none;"></div>
+        
+        <!-- 文档详情 -->
+        <div id="detailContainer" style="display: none;">
+            <div class="detail-header">
+                <h1 class="detail-title" id="docTitle"></h1>
+                <div class="detail-meta">
+                    <span>创建人：<span id="docCreator"></span></span>
+                    <span>创建时间：<span id="docTime"></span></span>
+                    <span id="docType"></span>
+                </div>
+            </div>
+            <div class="detail-content" id="docContent"></div>
+        </div>
+    </div>
+
+    <!-- 编辑文档模态框（优化类名，支持动画） -->
+    <div class="modal-mask" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">编辑 WIKI 文档</h3>
+                <button class="close-btn" id="closeEditBtn">×</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editDocId"> <!-- 存储文档ID -->
+                <div class="form-row">
+                    <label class="form-label">文档标题 *</label>
+                    <input type="text" class="form-input" id="editTitle" placeholder="请输入文档标题">
+                </div>
+                <div class="form-row">
+                    <label class="form-label">内容类型 *</label>
+                    <select class="content-type-select" id="editContentType">
+                        <option value="1">Markdown</option>
+                        <option value="2">HTML</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label class="form-label">文档内容 *</label>
+                    <textarea class="content-editor" id="editContent" placeholder="请输入文档内容（Markdown/HTML）"></textarea>
+                </div>
+                <span class="error-message" id="editError" style="display: none;"></span>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn" id="cancelEditBtn">取消</button>
+                <button class="save-btn" id="saveEditBtn">保存修改</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../script/page.js"></script>
+</body>
+</html>

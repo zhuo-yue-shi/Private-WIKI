@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private WIKI - 文档列表</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="script/modal-utils.js"></script> <!-- 新增：引入自定义弹窗工具 -->
+    <script src="script/index.js"></script>
+</head>
+<body>
+    <!-- 用户信息区域 -->
+    <div class="user-info" id="userInfo" style="display: none;">
+        <span class="user-email" id="userEmail"></span>
+        <button class="logout-btn" id="logoutBtn">退出登录</button>
+    </div>
+
+    <div class="wiki-container">
+        <h2 class="wiki-title">WIKI 文档列表</h2>
+        <!-- 新建按钮 -->
+        <button class="create-btn" id="createWikiBtn">新建 WIKI 文档</button>
+        <!-- 文档表格容器 -->
+        <div id="tableContainer"></div>
+    </div>
+
+    <!-- 新建WIKI模态框（优化类名，支持动画） -->
+    <div class="modal-mask" id="createModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">新建 WIKI 文档</h3>
+                <button class="close-btn" id="closeModalBtn">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <label class="form-label">文档标题 *</label>
+                    <input type="text" class="form-input" id="newTitle" placeholder="请输入文档标题">
+                </div>
+                <div class="form-row">
+                    <label class="form-label">内容类型 *</label>
+                    <select class="content-type-select" id="newContentType">
+                        <option value="1">Markdown</option>
+                        <option value="2">HTML</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label class="form-label">文档内容 *</label>
+                    <textarea class="content-editor" id="newContent" placeholder="请输入文档内容（Markdown/HTML）"></textarea>
+                </div>
+                <span class="error-message" id="createError" style="display: none;"></span>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn" id="cancelCreateBtn">取消</button>
+                <button class="submit-btn" id="submitCreateBtn">提交</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

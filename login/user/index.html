@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private WIKI - 账号登录</title>
+    <!-- 复用全局样式 -->
+    <link rel="stylesheet" href="../../css/style.css">
+    <!-- 引入 Supabase CDN（用于后续账号登录） -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- 引入解密工具库（必须在 user-login.js 前加载） -->
+    <script src="../../script/tools-key.js"></script>
+    <!-- 账号登录页专属样式 -->
+    <style>
+        .form-group {
+            text-align: left;
+            margin-bottom: 16px;
+        }
+        .form-label {
+            font-size: 14px;
+            color: #718096;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .form-input {
+            width: 100%;
+            height: 48px;
+            padding: 0 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            color: #2d3748;
+            transition: all 0.2s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 16px;
+            font-size: 14px;
+            color: #3182ce;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        /* 初始隐藏账号登录区 */
+        #accountLoginSection {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2 class="login-title">账号登录</h2>
+
+        <!-- 第一阶段：API Key解密密码输入区（初始显示） -->
+        <div id="apiDecryptSection">
+            <div class="input-group">
+                <label class="input-label">请输入API解密密码</label>
+                <input type="password" class="password-input" placeholder="输入解密密码" id="apiDecryptInput">
+                <span class="error-message" id="apiDecryptError" style="display: none;">密码错误</span>
+            </div>
+            <button class="login-btn" id="apiDecryptBtn">验证解密密码</button>
+        </div>
+
+        <!-- 第二阶段：邮箱+账号密码登录区（初始隐藏） -->
+        <div id="accountLoginSection">
+            <div class="form-group">
+                <label class="form-label">邮箱</label>
+                <input type="email" class="form-input" placeholder="请输入邮箱" id="emailInput" autocomplete="email">
+            </div>
+            <div class="form-group">
+                <label class="form-label">账号密码</label>
+                <input type="password" class="form-input" placeholder="请输入账号密码" id="passwordInput" autocomplete="current-password">
+            </div>
+            <span class="error-message" id="accountLoginError" style="display: none;"></span>
+            <button class="login-btn" id="accountLoginBtn">账号登录</button>
+        </div>
+
+        <!-- 返回主登录页链接（始终显示） -->
+        <a href="../" class="back-link">← 返回密码登录</a>
+    </div>
+
+    <!-- 引入账号登录逻辑脚本 -->
+    <script src="../../script/user-login.js"></script>
+</body>
+</html>

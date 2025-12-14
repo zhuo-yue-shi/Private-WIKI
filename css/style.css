@@ -1,0 +1,669 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f4f8;
+    padding: 20px;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    padding: 40px 30px;
+    text-align: center;
+}
+
+.login-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 30px;
+    letter-spacing: 0.5px;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.input-label {
+    font-size: 14px;
+    color: #718096;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.password-input {
+    width: 100%;
+    height: 48px;
+    padding: 0 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #2d3748;
+    transition: all 0.2s ease;
+}
+
+.password-input:focus {
+    outline: none;
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+}
+
+.error-message {
+    color: #e53e3e;
+    font-size: 13px;
+    margin-top: 10px;
+    display: block;
+}
+
+.login-btn {
+    width: 100%;
+    height: 48px;
+    background-color: #3182ce;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 10px;
+}
+
+.login-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.user-login-btn {
+    width: auto;
+    padding: 8px 16px;
+    font-size: 14px;
+    margin-left: auto;
+    background-color: #4a5568;
+}
+
+.user-login-btn:hover {
+    background-color: #2d3748;
+}
+
+.login-btn:hover {
+    background-color: #2b6cb0;
+}
+
+.login-btn:active {
+    transform: scale(0.98);
+}
+
+/* 主页 */
+.wiki-container {
+    width: 100%;
+    max-width: 1200px;
+    min-height: 80vh;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    padding: 40px 30px;
+    margin: 20px auto;
+    position: relative; /* 为用户信息定位做准备 */
+}
+
+.wiki-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 30px;
+    letter-spacing: 0.5px;
+    text-align: left;
+}
+
+.wiki-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.wiki-table th {
+    padding: 16px 12px;
+    text-align: left;
+    color: #718096;
+    font-weight: 500;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.wiki-table td {
+    padding: 16px 12px;
+    color: #2d3748;
+    border-bottom: 1px solid #f0f4f8;
+    transition: background-color 0.2s ease;
+}
+
+.wiki-table tr:hover td {
+    background-color: #f8fafc;
+    cursor: pointer;
+}
+
+.wiki-table tr:last-child td {
+    border-bottom: none;
+}
+
+.content-type-tag {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.type-markdown {
+    background-color: #e8f4f8;
+    color: #3182ce;
+}
+
+.type-html {
+    background-color: #fdf2f8;
+    color: #9f7aea;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #718096;
+}
+
+.empty-state p {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* 详情页 */
+.wiki-detail-container {
+    width: 100%;
+    max-width: 1000px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    padding: 40px 30px;
+    margin: 20px auto;
+    min-height: 80vh;
+}
+
+.detail-header {
+    margin-bottom: -20px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 20px;
+}
+
+.detail-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 10px;
+}
+
+.detail-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 14px;
+    color: #718096;
+}
+
+.meta-tag {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: 10px;
+}
+
+.detail-content {
+    padding: 20px 0;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #2d3748;
+}
+
+.detail-content h1,
+.detail-content h2,
+.detail-content h3 {
+    margin: 20px 0 10px;
+    color: #2d3748;
+}
+
+.detail-content pre {
+    background-color: #f8fafc;
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 10px 0;
+}
+
+.detail-content code {
+    background-color: #f0f4f8;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.back-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3182ce;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+
+.back-btn:hover {
+    background-color: #2b6cb0;
+}
+
+.error-state, .loading-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #718096;
+}
+
+/* 账号登陆页 */
+.form-group {
+    text-align: left;
+    margin-bottom: 16px;
+}
+
+.form-label {
+    font-size: 14px;
+    color: #718096;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.form-input {
+    width: 100%;
+    height: 48px;
+    padding: 0 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #2d3748;
+    transition: all 0.2s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 14px;
+    color: #3182ce;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* ========== 新增：美化编辑器样式 ========== */
+.content-editor {
+    width: 100%;
+    min-height: 250px;
+    padding: 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    resize: vertical;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace; /* 等宽字体，适合代码编辑 */
+    line-height: 1.6;
+    background-color: #fafafa;
+    transition: all 0.2s ease;
+}
+
+.content-editor:focus {
+    outline: none;
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+    background-color: #fff;
+}
+
+/* ========== 新增：优化操作按钮样式（编辑/删除） ========== */
+.doc-actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.edit-btn, .delete-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.edit-btn {
+    background-color: #38a169;
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #2f855a;
+    transform: translateY(-1px);
+}
+
+.delete-btn {
+    background-color: #e53e3e;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c53030;
+    transform: translateY(-1px);
+}
+
+/* ========== 新增：自定义弹窗样式（替代原生alert/confirm） ========== */
+.custom-modal-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+}
+
+.custom-modal-mask.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.custom-modal-content {
+    width: 100%;
+    max-width: 400px;
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    transform: translateY(-20px);
+    transition: all 0.2s ease;
+}
+
+.custom-modal-mask.show .custom-modal-content {
+    transform: translateY(0);
+}
+
+.custom-modal-header {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.custom-modal-body {
+    font-size: 14px;
+    color: #4a5568;
+    line-height: 1.6;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.custom-modal-footer {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.custom-modal-btn {
+    padding: 8px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.modal-confirm-btn {
+    background-color: #3182ce;
+    color: white;
+}
+
+.modal-confirm-btn:hover {
+    background-color: #2b6cb0;
+}
+
+.modal-cancel-btn {
+    background-color: #718096;
+    color: white;
+}
+
+.modal-cancel-btn:hover {
+    background-color: #4a5568;
+}
+
+/* ========== 新增：用户信息样式优化 ========== */
+.user-info {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: #2d3748;
+    background-color: #f8fafc;
+    padding: 8px 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.user-email {
+    font-weight: 500;
+}
+
+.logout-btn {
+    padding: 6px 12px;
+    background-color: #e53e3e;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.logout-btn:hover {
+    background-color: #c53030;
+}
+
+/* ========== 新增：新建按钮样式优化 ========== */
+.create-btn {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #48bb78;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.create-btn:hover {
+    background-color: #38a169;
+    transform: translateY(-1px);
+}
+
+/* ========== 新增：模态框通用样式优化 ========== */
+.modal-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.modal-mask.show {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 800px;
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    transform: translateY(-20px);
+    transition: transform 0.2s ease;
+}
+
+.modal-mask.show .modal-content {
+    transform: translateY(0);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 10px;
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #718096;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.close-btn:hover {
+    background-color: #f0f4f8;
+}
+
+.form-row {
+    margin-bottom: 16px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #718096;
+    font-weight: 500;
+}
+
+.content-type-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #2d3748;
+}
+
+.content-type-select:focus {
+    outline: none;
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+}
+
+.modal-footer {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.cancel-btn {
+    padding: 10px 20px;
+    background-color: #718096;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.cancel-btn:hover {
+    background-color: #4a5568;
+}
+
+.submit-btn, .save-btn {
+    padding: 10px 20px;
+    background-color: #3182ce;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.submit-btn:hover, .save-btn:hover {
+    background-color: #2b6cb0;
+}
+
+.submit-btn:disabled, .save-btn:disabled {
+    background-color: #a0aec0;
+    cursor: not-allowed;
+}
