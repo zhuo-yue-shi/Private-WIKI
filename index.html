@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
-    <script src="script/modal-utils.js"></script> <!-- 新增：引入自定义弹窗工具 -->
+    <script src="script/modal-utils.js"></script>
     <script src="script/index.js"></script>
 </head>
 <body>
@@ -19,13 +19,17 @@
 
     <div class="wiki-container">
         <h2 class="wiki-title">WIKI 文档列表</h2>
+        
+        <!-- 新增：板块标签页容器 -->
+        <div class="section-tabs" id="sectionTabs"></div>
+        
         <!-- 新建按钮 -->
         <button class="create-btn" id="createWikiBtn">新建 WIKI 文档</button>
         <!-- 文档表格容器 -->
         <div id="tableContainer"></div>
     </div>
 
-    <!-- 新建WIKI模态框（优化类名，支持动画） -->
+    <!-- 新建WIKI模态框（新增板块选择） -->
     <div class="modal-mask" id="createModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -36,6 +40,12 @@
                 <div class="form-row">
                     <label class="form-label">文档标题 *</label>
                     <input type="text" class="form-input" id="newTitle" placeholder="请输入文档标题">
+                </div>
+                <div class="form-row">
+                    <label class="form-label">所属板块 *</label>
+                    <select class="content-type-select" id="newColumn">
+                        <!-- 动态填充可访问板块 -->
+                    </select>
                 </div>
                 <div class="form-row">
                     <label class="form-label">内容类型 *</label>

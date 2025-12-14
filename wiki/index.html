@@ -7,13 +7,13 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="../css/style.css">
-    <script src="../script/modal-utils.js"></script> <!-- 新增：引入自定义弹窗工具 -->
+    <script src="../script/modal-utils.js"></script>
 </head>
 <body>
     <div class="wiki-detail-container">
         <a href="../" class="back-btn">← 返回文档列表</a>
         
-        <!-- 文档操作按钮（仅创建者可见） -->
+        <!-- 文档操作按钮（仅创建者/管理员可见） -->
         <div class="doc-actions" id="docActions" style="display: none;">
             <button class="edit-btn" id="editBtn">编辑文档</button>
             <button class="delete-btn" id="deleteBtn">删除文档</button>
@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <!-- 编辑文档模态框（优化类名，支持动画） -->
+    <!-- 编辑文档模态框 -->
     <div class="modal-mask" id="editModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -49,7 +49,7 @@
                 <button class="close-btn" id="closeEditBtn">×</button>
             </div>
             <div class="modal-body">
-                <input type="hidden" id="editDocId"> <!-- 存储文档ID -->
+                <input type="hidden" id="editDocId">
                 <div class="form-row">
                     <label class="form-label">文档标题 *</label>
                     <input type="text" class="form-input" id="editTitle" placeholder="请输入文档标题">

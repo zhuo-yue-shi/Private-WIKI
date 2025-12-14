@@ -667,3 +667,59 @@ body {
     background-color: #a0aec0;
     cursor: not-allowed;
 }
+
+/* 新增：板块标签页样式 */
+.section-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 8px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+
+.section-tabs::-webkit-scrollbar {
+    height: 4px;
+}
+
+.section-tabs::-webkit-scrollbar-thumb {
+    background-color: #cbd5e0;
+    border-radius: 2px;
+}
+
+.section-tab {
+    padding: 8px 16px;
+    background-color: #f0f4f8;
+    border: none;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    font-size: 14px;
+    color: #718096;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.section-tab:hover {
+    background-color: #e8f4f8;
+    color: #3182ce;
+}
+
+.section-tab.active {
+    background-color: #3182ce;
+    color: white;
+    font-weight: 500;
+}
+
+.section-tab.active:hover {
+    background-color: #2b6cb0;
+}
+
+/* 新增：无板块权限提示 */
+.no-section-permission {
+    text-align: center;
+    padding: 40px 20px;
+    color: #718096;
+    font-size: 14px;
+}
